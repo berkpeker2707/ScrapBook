@@ -1,0 +1,393 @@
+// Convert txt to use in automation (or use it as script after adding paths)
+// For testing, use Adobe Script Runner extension (in vscode), you need to change file to jsx
+// then uncomment following paths, instead of using regex
+
+// If montage order is mixed, you should change your file name as "Socks" in "Downloads" folder
+// then create "Socks Pictures" under it, and add montage file
+
+// var montagePath = {
+//   file: "Socks MONTAJ.ai",
+//   path: "/Users/berkolatto/Downloads/Socks/Socks MONTAJ.ai",
+// };
+
+// var photoPath = [
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/1.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/2.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/3.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/4.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/5.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/6.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/7.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/8.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/9.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/10.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/11.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/12.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/13.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/14.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/15.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/16.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/17.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/18.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/19.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/21.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/22.jpg",
+//   "/Users/berkolatto/Downloads/Socks/Sock Pictures/23.jpg",
+// ];
+
+// var outputPath = "/Users/berkolatto/Downloads/";
+
+var montagePath = ### ;
+
+var photoPath = ### ;
+
+var outputPath = ### ;
+
+arrMa = [];
+for (i = 0; i < photoPath.length; i++) {
+  arrMa.push(photoPath[i]);
+}
+
+// sort() according to numbers only
+var customSort = function (a, b) {
+  return Number(a.match(/(\d+)/g)[0]) - Number(b.match(/(\d+)/g)[0]);
+};
+
+// use sort() and apply the customSort function
+sortedArrMa = arrMa.sort(customSort);
+
+var layerNameCounter = 1;
+var fileCounter = 1;
+
+var i,
+  j,
+  temporary,
+  chunk = 8;
+for (i = 0, j = sortedArrMa.length; i < j; i += chunk) {
+  temporary = sortedArrMa.slice(i, i + chunk);
+
+  var montageDoc = app.open(File(montagePath.path));
+
+  ///////////////
+  // First Row //
+  ///////////////
+
+  //Paste according to location
+  if (temporary[4]) {
+    var jpgFilePath = temporary[4];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-1015, 2350.8);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-683.799999999999, 2350.8);
+    myPlacedItemSecond.embed();
+  }
+
+  if (temporary[5]) {
+    //Paste according to location
+    var jpgFilePath = temporary[5];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-352.599999999999, 2350.8);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-21.4000000000005, 2350.8);
+    myPlacedItemSecond.embed();
+  }
+
+  if (temporary[6]) {
+    //Paste according to location
+    var jpgFilePath = temporary[6];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(309.800000000001, 2350.8);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(641.000000000002, 2350.8);
+    myPlacedItemSecond.embed();
+  }
+
+  if (temporary[7]) {
+    //Paste according to location
+    var jpgFilePath = temporary[7];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(972.200000000003, 2350.8);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(1303.4, 2350.8);
+    myPlacedItemSecond.embed();
+  }
+
+  ///////////////
+  //Second Row //
+  ///////////////
+
+  if (temporary[0]) {
+    //Paste according to location
+    var jpgFilePath = temporary[0];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-1015, 975.6);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-683.799999999999, 975.6);
+    myPlacedItemSecond.embed();
+  }
+
+  if (temporary[1]) {
+    //Paste according to location
+    var jpgFilePath = temporary[1];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-352.599999999999, 975.6);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-21.4000000000005, 975.6);
+    myPlacedItemSecond.embed();
+  }
+
+  if (temporary[2]) {
+    //Paste according to location
+    var jpgFilePath = temporary[2];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(309.799999999997, 975.6);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(640.999999999998, 975.6);
+    myPlacedItemSecond.embed();
+  }
+
+  if (temporary[3]) {
+    //Paste according to location
+    var jpgFilePath = temporary[3];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(972.199999999999, 975.6);
+    myPlacedItem.embed();
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(1303.4, 975.6);
+    myPlacedItemSecond.embed();
+  }
+
+  ///////////////
+  // Third Row //
+  ///////////////
+
+  if (temporary[0]) {
+    //Paste according to location
+    var jpgFilePath = temporary[0];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-1015, -399.599999999999);
+    myPlacedItem.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-683.799999999999, -399.599999999999);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  if (temporary[1]) {
+    //Paste according to location
+    var jpgFilePath = temporary[1];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-352.599999999999, -399.599999999999);
+    myPlacedItem.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-21.4000000000005, -399.599999999999);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  if (temporary[2]) {
+    //Paste according to location
+    var jpgFilePath = temporary[2];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(309.799999999997, -399.599999999999);
+    myPlacedItem.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(640.999999999998, -399.599999999999);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  if (temporary[3]) {
+    //Paste according to location
+    var jpgFilePath = temporary[3];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(972.199999999999, -399.599999999999);
+    myPlacedItem.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(1303.4, -399.599999999999);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  ////////////////
+  // Fourth Row //
+  ////////////////
+
+  if (temporary[4]) {
+    //Paste according to location
+    var jpgFilePath = temporary[4];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-1015, -1774.8);
+    myPlacedItem.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-683.799999999999, -1774.8);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  if (temporary[5]) {
+    //Paste according to location
+    var jpgFilePath = temporary[5];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(-352.599999999999, -1774.8);
+    myPlacedItem.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(-21.4000000000005, -1774.8);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  if (temporary[6]) {
+    //Paste according to location
+    var jpgFilePath = temporary[6];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(309.799999999997, -1774.8);
+    myPlacedItem.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(640.999999999998, -1774.8);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  if (temporary[7]) {
+    //Paste according to location
+    var jpgFilePath = temporary[7];
+    var rasterFile = File(jpgFilePath);
+    var myPlacedItem = montageDoc.placedItems.add();
+    var myPlacedItemSecond = montageDoc.placedItems.add();
+    myPlacedItem.file = rasterFile;
+    myPlacedItem.position = Array(972.199999999999, -1774.8);
+    myPlacedItem.embed();
+    var f = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    f[0].transform(m); //for each selected element apply the flip matrix
+    myPlacedItemSecond.file = rasterFile;
+    myPlacedItemSecond.position = Array(1303.4, -1774.8);
+    myPlacedItemSecond.embed();
+    var s = montageDoc.selection; //current slection
+    var m = app.getScaleMatrix(100, -100); //H flip matrix - feel free to change to (100,-100) for horizontal flip, etc.
+    s[0].transform(m); //for each selected element apply the flip matrix
+  }
+
+  saveDoc(outputPath, fileCounter, montageDoc);
+
+  exportFileToJPEG(outputPath);
+
+  fileCounter++;
+
+  //saving doc
+  function saveDoc(outputPath, fileCounter, montageDoc) {
+    //saving path
+    var newPath = outputPath + fileCounter.toString() + "_" + "socks";
+    var aiDoc = new File(newPath);
+    var saveOptions = new IllustratorSaveOptions();
+    montageDoc.saveAs(aiDoc, saveOptions);
+  }
+
+  //exporting as jpeg
+  function exportFileToJPEG(outputPath) {
+    //saving path
+    var newPath = outputPath + fileCounter.toString() + "_" + "socks";
+    var aiDoc = new File(newPath);
+    //resolution
+    var scaleTo = 300;
+    var exportOptions = new ExportOptionsJPEG();
+    var type = ExportType.JPEG;
+
+    exportOptions.artBoardClipping = false;
+    exportOptions.antiAliasing = true;
+    //quality
+    exportOptions.qualitySetting = 100;
+    exportOptions.verticalScale = scaleTo;
+    exportOptions.horizontalScale = scaleTo;
+
+    montageDoc.exportFile(aiDoc, type, exportOptions);
+  }
+}

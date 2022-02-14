@@ -1,0 +1,25 @@
+{
+  "name": "scrapbook",
+  "version": "1.0.0",
+  "description": "Snippet project for testing blocks of code independently.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/berkpeker2707/ScrapBook.git"
+  },
+  "author": "Berk Peker",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/berkpeker2707/ScrapBook/issues"
+  },
+  "homepage": "https://github.com/berkpeker2707/ScrapBook#readme",
+  "type": "commonjs",
+  "dependencies": {
+    "log4js": "^6.4.1",
+    "puppeteer": "^13.3.2",
+    "selenium-webdriver": "^4.1.1"
+  }
+}
