@@ -1,0 +1,322 @@
+var montageFile = {
+  "19Sock Montaj 8li.ai": {
+    rows: 6,
+    cols: 5,
+    artboard: null,
+    path: "/Users/berkolatto/Downloads/Archive/sock montaj/montajModel/montaj1.ai",
+    savePath: "/Users/berkolatto/Downloads/Archive/sock montaj/montajModel",
+  },
+};
+
+var designFiles = {
+  "design1.ai": {
+    path: "/Users/berkolatto/Downloads/Archive/des1/design1.ai",
+  },
+};
+
+var allCustomDict = {
+  "19Sock Montaj 8li.ai": {
+    "design1.ai": [
+      {
+        designNo: "5",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/112-7935707-0021035/S1-112-7935707-0021035.jpg",
+        },
+      },
+      {
+        designNo: "2",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/112-3837023-9906661/S1-112-3837023-9906661.jpg",
+        },
+      },
+      {
+        designNo: "3",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/112-3837023-9906661/S1-112-3837023-9906661.jpg",
+        },
+      },
+      {
+        designNo: "4",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/114-0390050-3733034/S1-114-0390050-3733034.jpg",
+        },
+      },
+      {
+        designNo: "5",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/112-7935707-0021035/S1-112-7935707-0021035.jpg",
+        },
+      },
+      {
+        designNo: "6",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/114-0390050-3733034/S1-114-0390050-3733034.jpg",
+        },
+      },
+      {
+        designNo: "7",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/112-7935707-0021035/S1-112-7935707-0021035.jpg",
+        },
+      },
+      {
+        designNo: "4",
+        text: { "Line 1": "Jimbo", "Line 2": "2022" },
+        item: {
+          S1: "/Users/berkolatto/Downloads/Archive/FEB 14/PP/114-0390050-3733034/S1-114-0390050-3733034.jpg",
+        },
+      },
+    ],
+  },
+};
+
+var fileCounter = 1;
+for (var montageName in allCustomDict) {
+  copyNewMontageFolder(montageFile[montageName], fileCounter, montageName);
+
+  var montageDoc = app.open(
+    File(montageFile[montageName].savePath + fileCounter + "/montaj1.ai")
+  );
+  // var montageDocPath = montageFile[montageName].path;
+  var orderLayer = montageDoc.layers.getByName("ORDER");
+  var square = montageDoc.layers.getByName("CLOSE THIS LAYER");
+  var layerNameCounter = 1;
+
+  for (var designName in allCustomDict[montageName]) {
+    var origFolderPath = copyOrigDes(
+      montageFile[montageName],
+      fileCounter,
+      montageName
+    );
+
+    designDoc = app.open(File(origFolderPath + "/design1.ai"));
+
+    //designLayer all groups as layers
+    var designLayer = designDoc.layers.getByName("HEAD").groupItems;
+
+    var customInfo = allCustomDict[montageName][designName];
+    for (var i = 0; i < customInfo.length; i++) {
+      var designNo = customInfo[i].designNo;
+
+      designLayer.getByName(designNo).duplicate(orderLayer);
+
+      setLocation(orderLayer, designNo, square, layerNameCounter);
+
+      orderLayer.groupItems.getByName(designNo).name = layerNameCounter;
+      orderLayer.groupItems.getByName(layerNameCounter).name =
+       layerNameCounter;
+      try {
+        var photoFile = File(customInfo[i].item.S1);
+        var photoItem = montageDoc.placedItems.add();
+        photoItem.file = photoFile;
+        setSizePhoto(photoItem, square, layerNameCounter);
+        setLocationPhoto(photoItem, square, layerNameCounter);
+        photoItem.embed();
+      } catch (error) {}
+      layerNameCounter++;
+      try {
+        square.pathItems.getByName(layerNameCounter.toString());
+      } catch (e) {
+        montageDoc.save();
+        montageDoc = app.open(File(montageFile[montageName].path));
+        orderLayer = montageDoc.layers.getByName("ORDER");
+        square = montageDoc.layers.getByName("CLOSE THIS LAYER");
+        layerNameCounter = 1;
+        fileCounter++;
+      }
+    }
+    // designDoc.close();
+    designDoc.close(SaveOptions.DONOTSAVECHANGES);
+  }
+  montageDoc.save();
+  // deleteFilesInFolder()
+  // saveDoc(montageFile[montageName], fileCounter, montageDoc, montageName);
+}
+
+function setLocation(orderLayer, designNo, square, layerNameCounter) {
+  var layerName = layerNameCounter.toString();
+  var designLayer = orderLayer.groupItems.getByName(designNo);
+  var squareLayer = square.pathItems.getByName(layerName);
+  var xPos =
+    squareLayer.position[0] + (squareLayer.width - designLayer.width) / 2;
+  var yPos =
+    squareLayer.position[1] - (squareLayer.height - designLayer.height) / 2;
+  designLayer.position = [xPos, yPos];
+}
+
+function setLocationPhoto(photoItem, square, layerNameCounter) {
+  var layerName = layerNameCounter.toString();
+  var squareLayer = square.pathItems.getByName(layerName);
+  var xPos =
+    squareLayer.position[0] + (squareLayer.width - photoItem.width) / 2;
+  if (layerNameCounter < 5) {
+    var yPos =
+      squareLayer.position[1] + photoItem.height + squareLayer.height / 30;
+  } else {
+    var yPos =
+      squareLayer.position[1] - squareLayer.height - squareLayer.height / 30;
+  }
+  photoItem.position = [xPos, yPos];
+}
+
+function setSizePhoto(photoItem, square, layerNameCounter) {
+  var layerName = layerNameCounter.toString();
+  var squareLayer = square.pathItems.getByName(layerName);
+  var size =
+    Math.min(
+      squareLayer.width / photoItem.width,
+      squareLayer.height / photoItem.height
+    ) * 100;
+  photoItem.resize(size, size);
+}
+
+// copy des1 with Design1
+function copyOrigDes(montageFile, fileCounter, montageName) {
+  //create new des1 inside folder
+  var newFolderPath = montageFile.savePath + fileCounter.toString();
+  var origFolderPath = newFolderPath + "/des1";
+  var newOrigFolder = Folder(origFolderPath);
+  if (!newOrigFolder.exists) newOrigFolder.create();
+
+  var oldOrigPath = File(designFiles[designName].path).parent;
+
+  //copy design
+  //from / to
+  copy_folder(oldOrigPath, origFolderPath);
+
+  return origFolderPath;
+}
+
+//copy new montage folder
+function copyNewMontageFolder(montageFile, fileCounter, montageName) {
+  //copy from
+  var newFolderParentPath = montageFile.savePath;
+  //copy to
+  var newFolderPath = montageFile.savePath + fileCounter.toString();
+  //creating new montage folder
+  var newFolder = Folder(newFolderPath);
+  if (!newFolder.exists) newFolder.create();
+
+  //copy montage and links
+  copy_folder(newFolderParentPath, newFolderPath);
+
+  var newMontajDocPath = newFolderPath + "/montaj1.ai";
+
+  return newMontajDocPath;
+}
+
+function copyHeadPSD(montageIndex, fileCounter, montageName) {
+  var newFolderPath = montageIndex.savePath + fileCounter.toString();
+  // var newFolderPath = montageFile.savePath + fileCounter.toString();
+  var newFolder = Folder(newFolderPath);
+  if (!newFolder.exists) newFolder.create();
+  var linksFolderPath = newFolderPath + "/des1";
+  var linksFolderParentPath = newFolderPath + "/des1";
+  var newLinksFolder = Folder(linksFolderPath);
+  if (!newLinksFolder.exists) newLinksFolder.create();
+  // /Users/berkolatto/Desktop/Sock/Socks MONTAJ.ai
+  var oldLinksPath = File(designFiles[designName].path).parent + "/Links";
+
+  copy_folder(oldLinksPath, linksFolderPath);
+  copy_file_montage(
+    montageFile[montageName],
+    fileCounter,
+    montageName,
+    newFolderPath
+  );
+
+  return linksFolderPath;
+}
+
+function copy_folder(src_path, dst_path) {
+  try {
+    var f = new Folder(src_path).getFiles();
+    for (var i = 0; i < f.length; i++)
+      if (!copy_file(f[i], dst_path)) return false;
+    return true;
+  } catch (e) {
+    alert(e);
+  }
+}
+
+function copy_file(full_path, new_path) {
+  try {
+    var file = new File(full_path);
+    if (file.length < 0) {
+      if (!create_path(new_path + "/" + file.name)) return false;
+      if (!copy_folder(full_path, new_path + "/" + file.name)) return false;
+      return true;
+    } else {
+      if (!create_path(new_path)) return false;
+      if (!file.copy(new_path + "/" + file.name)) return false;
+      return true;
+    }
+  } catch (e) {
+    throw e;
+  }
+}
+
+function copy_file_montage(montageIndex, fileCounter, full_path, new_path) {
+  try {
+    var newFolderPath = montageIndex.savePath + fileCounter.toString();
+    var newFolder = Folder(newFolderPath);
+    if (!newFolder.exists) newFolder.create();
+
+    var file = new File(full_path);
+    if (file.length < 0) {
+      if (!create_path(new_path + "/" + file.name)) return false;
+      if (!copy_folder(full_path, new_path + "/" + file.name)) return false;
+      return true;
+    } else {
+      if (!create_path(new_path)) return false;
+      if (!file.copy(new_path + "/" + file.name)) return false;
+      return true;
+    }
+  } catch (e) {
+    throw e;
+  }
+}
+
+function create_path(path) {
+  var folder = new Folder(path);
+  if (!folder.exists) {
+    var f = new Folder(folder.path);
+    if (!f.exists) if (!create_path(folder.path)) return false;
+    if (!folder.create()) return false;
+  }
+  return true;
+}
+
+function deleteFilesInFolder(foFolderName) {
+  var locError = false;
+  var deleteFolder = new Folder(foFolderName);
+  var foFolderContent = deleteFolder.getFiles("");
+  for (var i = 0; i < foFolderContent.length; i++) {
+    if (foFolderContent[i] instanceof File) {
+      var FileToDelete = new File(foFolderContent[i]);
+      FileToDelete.remove();
+      if (FileToDelete.error > "") {
+        locError = true;
+        return;
+      }
+    } else if (foFolderContent[i] instanceof Folder) {
+      deleteFilesInFolder(foFolderContent[i]);
+    }
+  }
+  deleteFolder.remove();
+}
+
+function saveDoc(montageFile, fileCounter, montageDoc, montageName) {
+  var newFolderPath = montageFile.savePath + fileCounter.toString();
+  var newPath = newFolderPath + "/" + montageName.replace(".ai", "");
+  var aiDoc = new File(newPath);
+  var saveOptions = new IllustratorSaveOptions();
+  montageDoc.saveAs(aiDoc, saveOptions);
+}
